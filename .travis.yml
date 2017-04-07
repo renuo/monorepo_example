@@ -2,11 +2,13 @@ sudo: true
 dist: trusty
 language: node_js
 cache:
+  yarn: true
   apt: true
   directories:
     - frontend/node_modules
 before_script:
   - gem install bundler
   - bundle
+  - yarn global add @angular/cli
 script:
   - ./e2e
