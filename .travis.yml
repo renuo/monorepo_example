@@ -12,5 +12,9 @@ before_script:
   - gem install bundler
   - bundle
   - yarn global add @angular/cli
+  - cd backend && bundle
+  - cd ..
+  - cd frontend && yarn install
+  - cd ..
 script:
   - ./e2e
