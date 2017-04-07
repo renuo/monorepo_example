@@ -17,7 +17,7 @@ before_script:
   - gem install bundler
   - bundle
   - yarn global add @angular/cli
-  - cd backend && bundle
+  - cd backend && bundle && bundle exec rails db:setup
   - cd ..
   - cd frontend && yarn install
   - cd ..
