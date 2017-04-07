@@ -1,6 +1,8 @@
 sudo: true
 dist: trusty
 language: node_js
+node_js:
+  - "7"
 cache:
   yarn: true
   apt: true
