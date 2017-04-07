@@ -5,5 +5,8 @@ cache:
   apt: true
   directories:
     - frontend/node_modules
+before_script:
+  - gem install bundler
+  - bundle
 script:
   - ./e2e
