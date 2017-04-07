@@ -16,5 +16,6 @@ before_script:
   - cd ..
   - cd frontend && yarn install
   - cd ..
+  - "export DISPLAY=:99.0"
 script:
   - ./e2e
