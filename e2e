@@ -1,0 +1,8 @@
+#!/bin/sh
+
+foreman start &
+
+while ! nc localhost 5000 </dev/null; do sleep 10; done
+while ! nc localhost 5100 </dev/null; do sleep 10; done
+
+cd frontend && yarn run e2e

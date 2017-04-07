@@ -1,0 +1,9 @@
+sudo: true
+dist: trusty
+language: node_js
+cache:
+  apt: true
+  directories:
+    - frontend/node_modules
+script:
+  - ./e2e
