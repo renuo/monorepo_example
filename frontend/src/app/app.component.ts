@@ -9,6 +9,7 @@ import { TodoItem } from './models/todo-item';
   providers: [TodoDataService]
 })
 export class AppComponent implements OnInit {
+  title = 'Todos';
   todos: TodoItem[];
   newTodo: TodoItem = new TodoItem();
 
@@ -18,7 +19,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.todoDataService.index().subscribe(todos => {
-      console.log('received todos', todos);
       this.todos = todos;
     });
   }

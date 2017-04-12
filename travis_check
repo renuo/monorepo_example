@@ -1,0 +1,54 @@
+#!/bin/sh
+case $TEST_SUITE in
+backend )
+    echo "Run backend tests"
+    export RAILS_ENV=test
+    export DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+
+    cd backend
+    bundle --without development production --deployment
+    bundle exec rails db:create db:schema:load
+    bundle exec rake
+    ;;
+frontend )
+    echo "Run frontend tests"
+    cd frontend
+    yarn install
+    yarn test
+    ;;
+e2e )
+    echo "Run e2e tests"
+
+    export DISPLAY=:99.0
+    export RAILS_ENV=production
+    export FORCE_SSL=false
+    export DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    sudo apt-get update
+    sudo apt-get install google-chrome-stable
+
+    cd backend
+    bundle --without development test --deployment
+    bundle exec rails db:setup
+    bundle exec puma -C config/puma.rb > /dev/null 2>&1 &
+    echo "waiting for backend to start..."
+    while ! nc localhost 3001 </dev/null; do sleep 10; done
+    echo "backend started!"
+    cd ..
+
+    cd frontend
+    yarn global add @angular/cli
+    yarn install > /dev/null 2>&1
+    yarn build > /dev/null 2>&1
+    yarn server:prod &
+    echo "waiting for frontend to start..."
+    while ! nc localhost 3000 </dev/null; do sleep 10; done
+    echo "frontend started!"
+    cd ..
+
+    /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 2048x1454x16
+    cd frontend && yarn run e2e
+    ;;
+esac
