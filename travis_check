@@ -42,8 +42,7 @@ e2e )
     cd frontend
     yarn global add @angular/cli
     yarn install > /dev/null 2>&1
-    yarn build > /dev/null 2>&1
-    yarn server:prod &
+    yarn start &
     echo "waiting for frontend to start..."
     while ! nc localhost 3000 </dev/null; do sleep 10; done
     echo "frontend started!"
