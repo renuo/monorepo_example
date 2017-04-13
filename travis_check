@@ -23,7 +23,6 @@ e2e )
     export RAILS_ENV=production
     export FORCE_SSL=false
     export DISABLE_DATABASE_ENVIRONMENT_CHECK=1
-    export PORT=3001
 
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
@@ -33,9 +32,9 @@ e2e )
     cd backend
     bundle --without development test --deployment
     bundle exec rails db:setup
-    bundle exec puma -C config/puma.rb > /dev/null 2>&1 &
+    bundle exec rails s -p 3000 > /dev/null 2>&1 &
     echo "waiting for backend to start..."
-    while ! nc localhost 3001 </dev/null; do sleep 10; done
+    while ! nc localhost 3000 </dev/null; do sleep 10; done
     echo "backend started!"
     cd ..
 
