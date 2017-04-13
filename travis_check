@@ -43,7 +43,7 @@ e2e )
     yarn install > /dev/null 2>&1
     yarn start &
     echo "waiting for frontend to start..."
-    while ! nc localhost 3000 </dev/null; do sleep 10; done
+    while ! nc localhost 4200 </dev/null; do sleep 10; done
     echo "frontend started!"
     cd ..
 
