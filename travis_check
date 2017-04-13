@@ -32,7 +32,7 @@ e2e )
     cd backend
     bundle --without development test --deployment
     bundle exec rails db:setup
-    bundle exec rails s -p 3000 > /dev/null 2>&1 &
+    bundle exec rails s -p 3000
     echo "waiting for backend to start..."
     while ! nc localhost 3000 </dev/null; do sleep 10; done
     echo "backend started!"
