@@ -6,7 +6,7 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class TodoDataService {
-  endpoint = 'http://localhost:5000/todos';
+  endpoint = 'http://localhost:3000/todos';
 
   constructor(private http: Http) {
   }
