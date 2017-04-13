@@ -23,6 +23,7 @@ e2e )
     export RAILS_ENV=production
     export FORCE_SSL=false
     export DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+    export PORT=3001
 
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
